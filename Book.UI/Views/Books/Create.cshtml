@@ -1,0 +1,123 @@
+﻿@model Book.UI.Models.BookModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Create</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishedDate" class="control-label"></label>
+                <input asp-for="PublishedDate" class="form-control" />
+                <span asp-validation-for="PublishedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsTaken" /> @Html.DisplayNameFor(model => model.IsTaken)
+                </label>
+            </div>
+            <fieldset>
+                <legend>AUthors</legend>
+                <table id="submissionTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Surname</td>
+                            <td>BirthDate</td>
+                        </tr>
+                    </thead>
+
+                    <tr id="tablerow0">
+                        <td>
+                            <div class="editor-field">
+                                <input class="text-box single-line" name="Name[0]" type="text" value="" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                <input class="text-box single-line" name="Surname[0]" type="text" value="" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                <input class="text-box single-line" name="BirthDate[0]" type="date" value="" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="removeTr(0);">Delete</button>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                </table>
+                <p>
+                    <button id="add" type="button" class="btn btn-primary">Add</button>
+                </p>
+                <hr />
+            </fieldset>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        var counter = 1;
+            $(function () {
+                $('#add').click(function () {
+                    $('<tr id="tablerow' + counter + '"><td>' +
+                    '<input type="text" class="text-box single-line" name="Name[' + counter + ']" value="" required="required" />' +
+                        '</td>' +
+                        '<td>' +
+                    '<input type="text" class="text-box single-line" name="Surname[' + counter + ']" value="" required="required" />' +
+                        '</td>' +
+                        '<td>' +
+                    '<input type="date" class="text-box single-line" name="BirthDate[' + counter + ']" value="" required="required" />' +
+                        '</td>' +
+                        '<td>' +
+                        '<button type="button" class="btn btn-primary" onclick="removeTr(' + counter + ');">Delete</button>' +
+                        '</td>' +
+                        '</tr>').appendTo('#submissionTable');
+                    counter++;
+                    return false;
+                });
+            });
+            function removeTr(index) {
+                if (counter > 1) {
+                    $('#tablerow' + index).remove();
+                    counter--;
+                }
+                return false;
+            }
+        </script>
+}

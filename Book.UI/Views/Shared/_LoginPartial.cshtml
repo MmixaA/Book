@@ -1,0 +1,25 @@
+﻿@using Book.UI.Controllers
+
+@{
+    var isSignedIn = ViewBag.IsSignedIn != null ? (bool)ViewBag.IsSignedIn : false;
+}
+<ul class="navbar-nav">
+    @if (isSignedIn)
+{
+    <li class="nav-item">
+            <a class="nav-link text-dark" title="Manage">Hello @Model.user.DisplayName!</a>
+    </li>
+    <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Logout">Logout</a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
+    </li>
+}
+</ul>
